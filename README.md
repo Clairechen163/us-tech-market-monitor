@@ -69,7 +69,7 @@ These labels describe the model's inputs. They are **not buy/sell recommendation
 ## Run locally
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/us-tech-market-monitor.git
+git clone https://github.com/clairechen163/us-tech-market-monitor.git
 cd us-tech-market-monitor
 
 python -m venv .venv
