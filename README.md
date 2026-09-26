@@ -1,7 +1,22 @@
-[README.md](https://github.com/user-attachments/files/32609598/README.md)
 # US Tech Market Monitor
 
 A transparent, rules-based daily market monitor for U.S. technology and semiconductor stocks.
+
+[![Daily Market Monitor](https://github.com/Clairechen163/us-tech-market-monitor/actions/workflows/daily-market-monitor.yml/badge.svg)](https://github.com/Clairechen163/us-tech-market-monitor/actions/workflows/daily-market-monitor.yml)
+
+## Latest signals
+
+These signal badges are regenerated automatically after each scheduled end-of-session run.
+
+| KLAC | SPCX | VRT |
+|---|---|---|
+| ![KLAC](docs/badges/KLAC.svg) | ![SPCX](docs/badges/MRVL.svg) | ![VRT](docs/badges/VRT.svg) |
+
+**[Open the full dashboard →](docs/dashboard.md)**
+
+> The badges are descriptive model signals, not buy/sell recommendations and not proof of institutional activity.
+
+## What it measures
 
 The project is designed to answer a specific question:
 
@@ -20,11 +35,12 @@ It is a **monitoring and research tool**, not a trading system and not proof of 
 - Transparent 0–100 price/volume alignment score
 - Human-readable daily report
 - CSV output for further analysis
-- Optional GitHub Actions automation after the U.S. regular session
+- GitHub Actions automation after the U.S. regular session
+- README badges and a dashboard for three tracked names:`KLAC`, `SPCX`, `VRT`
 
 ## Default universe
 
-`GLW`, `KLAC`, `SPCX`, `VRT`
+`KLAC`, `SPCX`, `VRT`
 
 The monitor can easily be customized by editing `TICKERS` in `market_monitor.py`.
 
@@ -50,18 +66,6 @@ The score is deliberately transparent:
 
 These labels describe the model's inputs. They are **not buy/sell recommendations**.
 
-## Example interpretation
-
-A stock that rises strongly while:
-
-- RVOL20 is above 1.5,
-- price is above EMA20 and EMA50,
-- and price breaks the prior 20-day high
-
-has stronger **price/volume confirmation** than a stock that rises on below-average volume.
-
-The model does **not** infer that a particular institution is buying. Public OHLCV data cannot establish that conclusion by itself.
-
 ## Run locally
 
 ```bash
@@ -74,24 +78,42 @@ source .venv/bin/activate       # macOS/Linux
 
 pip install -r requirements.txt
 python market_monitor.py
+python scripts/update_dashboard.py
 ```
 
-The script writes:
+The monitor writes:
 
 - `market_report_YYYYMMDD.txt`
 - `market_report_YYYYMMDD.csv`
 
+The dashboard updater reads the latest CSV and generates:
+
+- `docs/dashboard.md`
+- `docs/badges/KLAC.svg`
+- `docs/badges/SPCX.svg`
+- `docs/badges/VRT.svg`
+
 ## GitHub Actions
 
-The included workflow runs on weekdays after the U.S. regular session.
+The workflow runs on weekdays after the U.S. regular session. It runs the market monitor, updates the six signal badges/dashboard, and commits changed dashboard assets back to the repository.
 
 GitHub Actions uses UTC. The schedule is intentionally set late enough to be after the 16:00 ET close during both daylight-saving and standard-time periods.
-
-Reports are uploaded as workflow artifacts, so the repository does not need to commit generated files on every run.
 
 You can also run it manually from:
 
 **GitHub → Actions → Daily Market Monitor → Run workflow**
+
+## Example interpretation
+
+A stock that rises strongly while:
+
+- RVOL20 is above 1.5,
+- price is above EMA20 and EMA50,
+- and price breaks the prior 20-day high
+
+has stronger **price/volume confirmation** than a stock that rises on below-average volume.
+
+The model does **not** infer that a particular institution is buying. Public OHLCV data cannot establish that conclusion by itself.
 
 ## Data source
 
