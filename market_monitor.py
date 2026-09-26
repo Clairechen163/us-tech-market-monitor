@@ -22,7 +22,7 @@ import pandas as pd
 import yfinance as yf
 
 
-TICKERS = ["GLW", "KLAC", "SPCX", "VRT"]
+TICKERS = ["KLAC", "SPCX", "VRT"]
 
 LOOKBACK = "18mo"
 VOLUME_WINDOW = 20
